@@ -1,21 +1,51 @@
 #include "integer.h"
 #include <iostream>
 using namespace std;
-Integer::Integer() :value(0) {
-	cout << (int)this<<'\t'<< "Constructor without parameters!\n";
+
+Integer::Integer(int value){
+	cout << (int)this << '\t' << "Integer(int)\n";
+	innerInt = new InnerInteger(value);
 }
-Integer::Integer(int i):value(i){
-	cout << (int)this << '\t' << "Constructor with one parameter!\n";
-}
-Integer::Integer(const Integer&) {
-	cout << (int)this << '\t' << "Copy constructor!\n";
+Integer::Integer(const Integer &obj ) {
+	cout << (int)this << '\t' << "CopyInteger()!\n";
+	innerInt = new InnerInteger(obj.innerInt->get());
 }
 Integer::~Integer() {
-	cout << (int)this << '\t' << "Destructor!\n";
-}
-Integer Integer::operator+(const Integer &r) {
-	return Integer(value + r.value);
+	delete innerInt;
+	cout << (int)this << '\t' << "~~~Integer()!\n";
 }
 void Integer::show() {
-	cout <<"\nvalue= " <<value << endl;
+	cout <<"\nvalue=" <<innerInt->get() << endl;
 }
+Integer Integer::operator+(const Integer &r) {
+	return Integer(innerInt->get()+r.innerInt->get());
+}
+Integer Integer::operator-(const Integer &r) {
+	return Integer(innerInt->get() - r.innerInt->get());
+}
+Integer Integer::operator=(const Integer &r) {
+	innerInt->set(r.innerInt->get());
+	return *this;
+	//без перегрузки оператора присваивание sum=
+	//выкидывает исключение, хотя nt1+nt2 нормально работает
+	//т.к. конструктор копирования не создает InnerInteger
+	//потому что даже не запускается
+	//да и не должен при sum=a+b  только при Integer sum=nt1
+}
+InnerInteger::InnerInteger(int value) :value(value) {
+	cout << '\t'<<(int)this << '\t' << "InnerInteger()!\n";
+}
+InnerInteger::~InnerInteger() {
+	cout << '\t' << (int)this << '\t' << "~~~InnerInteger()!\n";
+}
+void InnerInteger::set(int value) {
+	this->value = value;
+}
+int InnerInteger::get() {
+	return value;
+}
+
+
+
+
+
