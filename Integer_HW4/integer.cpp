@@ -24,14 +24,20 @@ Integer Integer::operator-(const Integer &r) {
 	return Integer(innerInt->get() - r.innerInt->get());
 }
 Integer Integer::operator=(const Integer &r) {
-	innerInt->set(r.innerInt->get());
+	innerInt->set(r.innerInt->get());//var1.field=var2.field
 	return *this;
-	//без перегрузки оператора присваивание sum=
-	//выкидывает исключение, хотя nt1+nt2 нормально работает
-	//т.к. конструктор копирования не создает InnerInteger
-	//потому что даже не запускается
-	//да и не должен при sum=a+b  только при Integer sum=nt1
 }
+Integer Integer::operator*(const Integer &r) {
+	return Integer(innerInt->get() * r.innerInt->get());
+}
+Integer Integer::operator/(const Integer &r) {
+	return Integer(innerInt->get() / r.innerInt->get());
+}
+Integer Integer::operator%(const Integer &r) {
+	return Integer(innerInt->get() % r.innerInt->get());
+}
+
+
 InnerInteger::InnerInteger(int value) :value(value) {
 	cout << '\t'<<(int)this << '\t' << "InnerInteger()!\n";
 }

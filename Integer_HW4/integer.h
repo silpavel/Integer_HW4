@@ -11,14 +11,18 @@ public:
 	//нет копирующего конструктора т.к. нет полей-указателей
 };
 class Integer {
-	InnerInteger *innerInt;
+	//InnerInteger *innerInt;
 public:
+	InnerInteger *innerInt;//помещен сюда для проверки
 	//Metods
 	void show();
 	//operators
 	Integer operator+(const Integer &r);
 	Integer operator-(const Integer &r);
 	Integer operator=(const Integer &r);
+	Integer operator*(const Integer &r);
+	Integer operator/(const Integer &r);
+	Integer operator%(const Integer &r);
 
 	//constructors+destructor	
 	Integer(int);
