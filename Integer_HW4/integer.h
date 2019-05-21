@@ -23,6 +23,10 @@ public:
 	Integer operator*(const Integer &r);
 	Integer operator/(const Integer &r);
 	Integer operator%(const Integer &r);
+	Integer& operator++();//a=++b
+	Integer operator++(int);//a=b++
+	Integer& operator--();//a=--b
+	Integer operator--(int);//a=b--
 
 	//constructors+destructor	
 	Integer(int);
